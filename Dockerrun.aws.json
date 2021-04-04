@@ -1,0 +1,16 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "forest-web",
+      "image": "629900478089.dkr.ecr.ap-northeast-2.amazonaws.com/forest-web",
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 3000
+        }
+      ],
+      "memory": 128
+    }
+  ]
+}

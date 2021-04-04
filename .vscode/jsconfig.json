@@ -1,0 +1,15 @@
+{
+	"baseUrl": ".",
+	"paths": {
+		"~/src/*": ["./src/*"],
+		"~/utils/*": ["./src/utils/*"],
+		"~/components/*": ["./src/components/*"],
+		"~/interfaces/*": ["./src/interfaces/*"],
+		"~/stores/*": ["./src/stores/*"],
+		"~/store": ["./src/store/index"],
+		"~/views/*": ["./src/views/*"],
+		"~/hooks/*": ["./src/hooks/*"],
+		"~/hooks": ["./src/hooks/index"],
+		"~/config/*": ["./config/*"]
+	}
+}

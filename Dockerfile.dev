@@ -1,0 +1,17 @@
+FROM mhart/alpine-node
+
+ENV NODE_ENV=development
+
+EXPOSE 3000
+
+WORKDIR /app
+
+COPY ./package*.json ./
+
+RUN yarn install --frozen-lockfile
+
+COPY . .
+
+RUN yarn build
+
+CMD ["yarn", "start"]

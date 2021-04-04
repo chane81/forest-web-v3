@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "preserve",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "strict": false,
+    "allowJs": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "isolatedModules": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "~/src/*": ["./src/*"],
+      "~/utils/*": ["./src/utils/*"],
+      "~/components/*": ["./src/components/*"],
+      "~/interfaces/*": ["./src/interfaces/*"],
+      "~/store/*": ["./src/store/*"],
+      "~/store": ["./src/store/index"],
+      "~/views/*": ["./src/views/*"],
+      "~/hooks/*": ["./src/hooks/*"],
+      "~/hooks": ["./src/hooks/index"],
+      "~/config/*": ["./config/*"]
+    }
+  },
+  "exclude": [
+    "dist",
+    ".next",
+    "out",
+    "build",
+    "next.config.js",
+    "node_modules",
+    "envConfig"
+  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"]
+}

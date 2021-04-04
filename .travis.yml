@@ -1,0 +1,44 @@
+os: linux
+
+language: generic
+
+dist: xenial
+
+services:
+  - docker
+
+branches:
+  only:
+    - product
+
+before_install:
+  - echo "start creating an image with dockerfile"
+  - docker --version
+
+  # AWS CLI 설치, PATH 설정
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
+
+  # ECR LOGIN
+  # 환경변수필요: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+  - eval $(aws ecr get-login --no-include-email --region ap-northeast-2)
+
+after_success:
+  # 이미지 빌드
+  - docker build -t forest-web -f Dockerfile .
+
+  # ECR 이미지 PUSH
+  - docker tag forest-web:latest $AWS_ECR_URL:latest
+  - docker push $AWS_ECR_URL:latest
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'ap-northeast-2'
+  app: 'forest-web'
+  env: 'ForestWeb-env'
+  bucket_name: 'elasticbeanstalk-ap-northeast-2-629900478089'
+  on:
+    branch: product
+
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY

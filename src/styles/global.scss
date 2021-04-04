@@ -1,0 +1,23 @@
+/** 폰트 **/
+/** 서울남산체 **/
+@font-face {
+  font-family: 'SeoulNamsanM';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulNamsanM.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/** bootstrap 로드 **/
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/** 버튼 focus style **/
+button:focus {
+  outline: unset;
+}
+
+body {
+  font-family: 'SeoulNamsanM', sans-serif !important;
+  font-weight: 300 !important;
+  font-size: 0.8rem !important;
+}

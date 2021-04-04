@@ -1,0 +1,48 @@
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.1
+jobs:
+  deploy:
+    docker:
+      - image: circleci/python:3.9.1
+    steps:
+      - checkout
+      - run:
+          name: installing aws dependencies
+          command: |
+            sudo python -m pip install --user --upgrade pip
+            sudo pip install --upgrade setuptools
+            sudo pip install awsebcli --upgrade
+      - run:
+          name: deployings
+          command: |
+            eb init --platform 'Multi-container Docker running on 64bit Amazon Linux' --region $AWS_DEFAULT_REGION $EB_APPLICATION_NAME
+            eb use $EB_ENVIRONMENT_NAME
+            eb deploy $EB_ENVIRONMENT_NAME --message $CIRCLE_BUILD_NUM
+
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          #repo 는 앞에 $를 붙여줄것
+          repo: $AWS_ECR_REPO
+
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_DEFAULT_REGION
+          create-repo: false
+          no-output-timeout: 20m
+          skip-when-tags-exist: false
+          tag: "latest"
+          filters:
+            branches:
+              only:
+                - product
+      - deploy:
+          requires:
+            - aws-ecr/build-and-push-image
+          filters:
+            branches:
+              only:
+                - product
